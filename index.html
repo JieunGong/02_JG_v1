@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVELON Official Goods Store</title>
+    <!-- 나눔고딕 웹 폰트 로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 기본 디자인 및 컬러 테마 지정 */
+        :root {
+            --develon-orange: #FF6B00;
+            --develon-black: #111111;
+            --develon-dark-gray: #1A1A1A;
+            --develon-white: #FFFFFF;
+            --develon-light-gray: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nanum Gothic', sans-serif;
+            scroll-behavior: smooth; /* 부드러운 북마크 스크롤 효과 */
+        }
+
+        body {
+            background-color: var(--develon-white);
+            color: var(--develon-black);
+            line-height: 1.6;
+        }
+
+        /* 헤더 & 북마크 내비게이션 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(5px);
+            color: var(--develon-white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 3px solid var(--develon-orange);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--develon-white);
+        }
+
+        .logo span {
+            color: var(--develon-orange);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--develon-white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--develon-orange);
+        }
+
+        /* 히어로 섹션 (메인 홍보) */
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1579829365846-03511e474939?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--develon-white);
+            padding: 0 20px;
+            padding-top: 80px;
+        }
+
+        #home h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        #home h1 span {
+            color: var(--develon-orange);
+        }
+
+        #home p {
+            font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 40px;
+            color: #CCCCCC;
+        }
+
+        .btn-main {
+            display: inline-block;
+            background-color: var(--develon-orange);
+            color: var(--develon-white);
+            padding: 15px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            border: 2px solid transparent;
+        }
+
+        .btn-main:hover {
+            background-color: transparent;
+            border-color: var(--develon-orange);
+            color: var(--develon-orange);
+            transform: translateY(-3px);
+        }
+
+        /* 공통 섹션 스타일 (구역별 컬러 배치) */
+        section {
+            padding: 100px 5% 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 60px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--develon-orange);
+        }
+
+        /* 상품 그리드 & 카드 스타일 */
+        .goods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .goods-card {
+            background-color: var(--develon-white);
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+
+        /* JS 움직임 효과용 class */
+        .goods-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            border-color: var(--develon-orange);
+        }
+
+        .goods-img {
+            height: 280px;
+            background-color: #ECECEC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            font-weight: 700;
+            color: #999999;
+        }
+
+        /* 대형 로고 플레이스홀더 데코레이션 */
+        .goods-img::before {
+            content: 'DEVELON';
+            position: absolute;
+            font-size: 40px;
+            font-weight: 800;
+            color: rgba(255, 107, 0, 0.1);
+            transform: rotate(-15px);
+        }
+
+        .goods-info {
+            padding: 25px;
+        }
+
+        .goods-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            background-color: var(--develon-black);
+            color: var(--develon-white);
+            padding: 3px 8px;
+            border-radius: 2px;
+            margin-bottom: 10px;
+        }
+
+        .goods-card:hover .goods-tag {
+            background-color: var(--develon-orange);
+        }
+
+        .goods-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .goods-price {
+            font-size: 16px;
+            color: var(--develon-orange);
+            font-weight: 700;
+        }
+
+        /* 구역 분할 배경 컬러 구현 */
+        #apparel { background-color: var(--develon-light-gray); }
+        #mug-tumbler { background-color: var(--develon-white); }
+        #stationery { background-color: var(--develon-light-gray); }
+        
+        /* 브랜드 스토리 섹션 (검은색 배경 구역) */
+        #brand-story {
+            background-color: var(--develon-black);
+            color: var(--develon-white);
+            text-align: center;
+        }
+
+        #brand-story .section-title {
+            color: var(--develon-white);
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 2;
+            color: #BBBBBB;
+        }
+
+        .story-content strong {
+            color: var(--develon-orange);
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: #0A0A0A;
+            color: #777777;
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid #222222;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer span {
+            color: var(--develon-orange);
+        }
+
+        /* 반응형 모바일 디자인 */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            nav {
+                margin-top: 15px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            #home h1 {
+                font-size: 32px;
+            }
+            section {
+                padding: 80px 20px 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 & 책갈피 내비게이션 -->
+    <header>
+        <div class="logo">DEVE<span>LON</span> GDS</div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link active">HOME</a></li>
+                <li><a href="#apparel" class="nav-link">의류</a></li>
+                <li><a href="#mug-tumbler" class="nav-link">컵/텀블러</a></li>
+                <li><a href="#stationery" class="nav-link">문구류</a></li>
+                <li><a href="#brand-story" class="nav-link">브랜드 스토리</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 메인 홍보 히어로 섹션 -->
+    <section id="home">
+        <h1>강인한 DNA를 일상 속에, <span>DEVELON GOODS</span></h1>
+        <p>현장을 리드하는 디벨론 굴착기의 강력함과 모던한 감성을 그대로 담아낸 익스클루시브 라이프스타일 굿즈 라인업을 만나보세요.</p>
+        <a href="#apparel" class="btn-main">라인업 둘러보기</a>
+    </section>
+
+    <!-- 구역 1: 의류 (연회색 배경) -->
+    <section id="apparel">
+        <h2 class="section-title">APPAREL COLLECTION</h2>
+        <div class="goods-grid">
+            <div class="goods-card">
+                <div class="goods-img">DEVELON 로고 프린팅</div>
+                <div class="goods-info">
+                    <span class="goods-tag">LIMITED</span>
+                    <h3 class="goods-name">디벨론 시그니처 숏슬리브 (블랙)</h3>
+                    <p class="goods-price">₩35,000</p>
+                </div>
+            </div>
+            <div class="goods-card">
+                <div class="goods-img">하이테크 오렌지 라인</div>
+                <div class="goods-info">
+                    <span class="goods-tag">NEW</span>
+                    <h3 class="goods-name">워크웨어 테크니컬 후디</h3>
+                    <p class="goods-price">₩79,000</p>
+                </div>
+            </div>
+            <div class="goods-card">
+                <div class="goods-img">볼캡 자수 로고</div>
+                <div class="goods-info">
+                    <span class="goods-tag">BEST</span>
+                    <h3 class="goods-name">디벨론 오렌지 포인트 볼캡</h3>
+                    <p class="goods-price">₩29,000</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 구역 2: 컵/텀블러 (흰색 배경) -->
+    <section id="mug-tumbler">
+        <h2 class="section-title">MUG & TUMBLER</h2>
+        <div class="goods-grid">
+            <div class="goods-card">
+                <div class="goods-img">매트 블랙 코팅</div>
+                <div class="goods-info">
+                    <span class="goods-tag">BEST</span>
+                    <h3 class="goods-name">헤비듀티 매트 머그잔 (400ml)</h3>
+                    <p class="goods-price">₩18,000</p>
+                </div>
+            </div>
+            <div class="goods-card">
+                <div class="goods-img">진공 스텐 이중 구조</div>
+                <div class="goods-info">
+                    <span class="goods-tag">NEW</span>
+                    <h3 class="goods-name">디벨론 시그니처 오렌지 텀블러</h3>
+                    <p class="goods-price">₩32,000</p>
+                </div>
+            </div>
+            <div class="goods-card">
+                <div class="goods-img">캠핑용 스틸 재질</div>
+                <div class="goods-info">
+                    <span class="goods-tag">HOT</span>
+                    <h3 class="goods-name">아웃도어 스테인리스 캠핑 컵</h3>
+                    <p class="goods-price">₩15,000</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 구역 3: 문구류 (연회색 배경) -->
+    <section id="stationery">
+        <h2 class="section-title">STATIONERY</h2>
+        <div class="goods-grid">
+            <div class="goods-card">
+                <div class="goods-img">하드커버 오렌지 밴드</div>
+                <div class="goods-info">
+                    <span class="goods-tag">NEW</span>
+                    <h3 class="goods-name">하드커버 아이디에이션 노트</h3>
+                    <p class="goods-price">₩12,000</p>
+                </div>
+            </div>
+            <div class="goods-card">
+                <div class="goods-img">카본 파이버 패턴</div>
+                <div class="goods-info">
+                    <span class="goods-tag">BEST</span>
+                    <h3 class="goods-name">프리미엄 메탈 젤펜 세트</h3>
+                    <p class="goods-price">₩22,000</p>
+                </div>
+            </div>
+            <div class="goods-card">
+                <div class="goods-img">굴착기 실루엣 다이컷</div>
+                <div class="goods-info">
+                    <span class="goods-tag">CREATIVE</span>
+                    <h3 class="goods-name">디벨론 그래픽 데코 스티커 팩</h3>
+                    <p class="goods-price">₩5,000</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 구역 4: 브랜드 스토리 (검은색 배경) -->
+    <section id="brand-story">
+        <h2 class="section-title">BRAND STORY</h2>
+        <div class="story-content">
+            <p>
+                <strong>DEVELON(디벨론)</strong>은 'Develop(발전하다)'과 'Onward(앞으로)'의 조합어로,<br>
+                끊임없는 혁신을 통해 미래를 향해 나아가겠다는 강력한 의지를 담고 있습니다.<br><br>
+                대지를 개척하는 굴착기의 메커니컬한 볼드함과 오렌지 컬러의 역동 에너지를 시각화하여,<br>
+                당신의 일상 속에서도 거침없는 도전 정신을 전하는 프리미엄 라이프스타일 굿즈를 제안합니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2026 <span>DEVELON</span> Goods Store. All Rights Reserved.</p>
+        <p>본 웹사이트는 DEVELON 굴착기 홍보를 위한 포트폴리오/스마트 굿즈 샵 예시 페이지입니다.</p>
+    </footer>
+
+    <!-- 자바스크립트 스크립트 (움직임 효과 및 스크롤 감지) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // 1. 스크롤 위치에 따른 북마크(메뉴 하이라이트) 동적 활성화
+            window.addEventListener('scroll', () => {
+                let currentSectionId = 'home';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    // 현재 스크롤바의 위치가 해당 섹션 영역 내부인지 판단 (헤더 높이 보정)
+                    if (pageYOffset >= sectionTop - 120) {
+                        currentSectionId = section.getAttribute('index.html' === section.id ? '' : section.id);
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(currentSectionId)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 2. 굿즈 카드 마우스 진입/이탈 시 부드러운 스케일 모션 추가 (JS 인터랙션 구현)
+            const cards = document.querySelectorAll('.goods-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // 미세한 회전 및 튕김 효과 연출
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
